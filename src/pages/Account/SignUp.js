@@ -6,6 +6,7 @@ import { auth } from '../../firebase';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUp = () => {
+  // ============= Initial State Start here =============
   const [clientName, setClientName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -15,7 +16,8 @@ const SignUp = () => {
   const [country, setCountry] = useState("");
   const [zip, setZip] = useState("");
   const [checked, setChecked] = useState(false);
-
+  // ============= Initial State End here ===============
+  // ============= Error Msg Start here =================
   const [errClientName, setErrClientName] = useState("");
   const [errEmail, setErrEmail] = useState("");
   const [errPhone, setErrPhone] = useState("");
@@ -24,9 +26,9 @@ const SignUp = () => {
   const [errCity, setErrCity] = useState("");
   const [errCountry, setErrCountry] = useState("");
   const [errZip, setErrZip] = useState("");
-
+  // ============= Error Msg End here ===================
   const [successMsg, setSuccessMsg] = useState("");
-
+  // ============= Event Handler Start here =============
   const handleName = (e) => {
     setClientName(e.target.value);
     setErrClientName("");
@@ -59,12 +61,14 @@ const SignUp = () => {
     setZip(e.target.value);
     setErrZip("");
   };
-
+  // ============= Event Handler End here ===============
+  // ================= Email Validation start here =============
   const EmailValidation = (email) => {
     return String(email)
       .toLowerCase()
       .match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
   };
+  // ================= Email Validation End here ===============
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -101,6 +105,7 @@ const SignUp = () => {
       if (!zip) {
         setErrZip("Enter the zip code of your area");
       }
+      // ============== Getting the value ==============
       if (
         clientName &&
         email &&
@@ -120,7 +125,7 @@ const SignUp = () => {
           );
           const user = userCredential.user;
           setSuccessMsg(
-            `Hello dear ${clientName}, Welcome to OREBI Admin panel. We received your Sign up request. We are processing to validate your access. Till then stay connected and additional assistance will be sent to you by your mail at ${email}`
+            `Hello dear ${clientName}, Welcome to Glam Haven Admin panel. We received your Sign up request. We are processing to validate your access. Till then stay connected and additional assistance will be sent to you by your mail at ${email}`
           );
           setClientName("");
           setEmail("");
@@ -251,7 +256,7 @@ const SignUp = () => {
                     value={email}
                     className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
                     type="email"
-                    placeholder="eg. sousrun@email.com"
+                    placeholder="sousrun@email.com"
                   />
                   {errEmail && (
                     <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
@@ -270,7 +275,7 @@ const SignUp = () => {
                     value={phone}
                     className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
                     type="text"
-                    placeholder="008801234567891"
+                    placeholder="015507836"
                   />
                   {errPhone && (
                     <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
@@ -298,7 +303,82 @@ const SignUp = () => {
                     </p>
                   )}
                 </div>
-        
+                {/* Address */}
+                <div className="flex flex-col gap-.5">
+                  <p className="font-titleFont text-base font-semibold text-gray-600">
+                    Address
+                  </p>
+                  <input
+                    onChange={handleAddress}
+                    value={address}
+                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    type="text"
+                    placeholder="road-001, house-115, example area"
+                  />
+                  {errAddress && (
+                    <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
+                      <span className="font-bold italic mr-1">!</span>
+                      {errAddress}
+                    </p>
+                  )}
+                </div>
+                {/* City */}
+                <div className="flex flex-col gap-.5">
+                  <p className="font-titleFont text-base font-semibold text-gray-600">
+                    City
+                  </p>
+                  <input
+                    onChange={handleCity}
+                    value={city}
+                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    type="text"
+                    placeholder="Your city"
+                  />
+                  {errCity && (
+                    <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
+                      <span className="font-bold italic mr-1">!</span>
+                      {errCity}
+                    </p>
+                  )}
+                </div>
+                {/* Country */}
+                <div className="flex flex-col gap-.5">
+                  <p className="font-titleFont text-base font-semibold text-gray-600">
+                    Country
+                  </p>
+                  <input
+                    onChange={handleCountry}
+                    value={country}
+                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    type="text"
+                    placeholder="Your country"
+                  />
+                  {errCountry && (
+                    <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
+                      <span className="font-bold italic mr-1">!</span>
+                      {errCountry}
+                    </p>
+                  )}
+                </div>
+                {/* Zip code */}
+                <div className="flex flex-col gap-.5">
+                  <p className="font-titleFont text-base font-semibold text-gray-600">
+                    Zip/Postal code
+                  </p>
+                  <input
+                    onChange={handleZip}
+                    value={zip}
+                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    type="text"
+                    placeholder="Your country"
+                  />
+                  {errZip && (
+                    <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
+                      <span className="font-bold italic mr-1">!</span>
+                      {errZip}
+                    </p>
+                  )}
+                </div>
                 {/* Checkbox */}
                 <div className="flex items-start mdl:items-center gap-2">
                   <input
